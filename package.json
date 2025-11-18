@@ -1,0 +1,22 @@
+{
+  "name": "3d-interactive-portfolio",
+  "version": "1.0.0",
+  "description": "A fully interactive 3D portfolio website built with Three.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "portfolio",
+    "three.js",
+    "3d",
+    "interactive",
+    "web",
+    "gsap"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}

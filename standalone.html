@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Interactive Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            display: block; /* Ensure canvas is displayed */
+        }
+
+        .loading-bar-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 4px;
+            background: #111111;
+            z-index: 100;
+            border-radius: 2px;
+            overflow: hidden;
+            transition: opacity 1s ease;
+        }
+
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background: #5d87ff;
+            transition: width 0.5s ease;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            pointer-events: none; /* Allow interaction with 3D objects */
+        }
+
+        header {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            pointer-events: auto; /* Re-enable interaction for header */
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #5d87ff, #ff5d87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #5d87ff;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: auto; /* Re-enable interaction for sections */
+        }
+
+        .section-content {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(10, 10, 10, 0.7); /* Semi-transparent background */
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(93, 135, 255, 0.2);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #5d87ff, #ff5d87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Debug info */
+        #debug-info {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-bar-container">
+        <div class="loading-bar"></div>
+    </div>
+
+    <div id="debug-info">Loading Three.js...</div>
+
+    <div class="content">
+        <header>
+            <h1 class="title">Interactive Portfolio</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="about" class="section">
+            <div class="section-content">
+                <h2>About Me</h2>
+                <p>Welcome to my interactive 3D portfolio! I'm a professional with expertise in various domains. Explore this space to learn more about my skills and experience.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Include Three.js libraries directly with onload handlers -->
+    <script>
+        // Track loading status
+        let threeJsLoaded = false;
+        let orbitControlsLoaded = false;
+        
+        function checkAllLoaded() {
+            const debugInfo = document.getElementById('debug-info');
+            debugInfo.textContent = `Three.js: ${threeJsLoaded ? 'Loaded' : 'Loading'}, OrbitControls: ${orbitControlsLoaded ? 'Loaded' : 'Loading'}`;
+            
+            if (threeJsLoaded && orbitControlsLoaded) {
+                debugInfo.textContent = 'All libraries loaded. Initializing 3D scene...';
+                initThreeJS();
+            }
+        }
+        
+        // Load Three.js
+        const threeScript = document.createElement('script');
+        threeScript.src = 'https://unpkg.com/three@0.160.0/build/three.min.js';
+        threeScript.onload = function() {
+            threeJsLoaded = true;
+            checkAllLoaded();
+            
+            // Load OrbitControls after Three.js is loaded
+            const orbitScript = document.createElement('script');
+            orbitScript.src = 'https://unpkg.com/three@0.160.0/examples/js/controls/OrbitControls.js';
+            orbitScript.onload = function() {
+                orbitControlsLoaded = true;
+                checkAllLoaded();
+            };
+            document.head.appendChild(orbitScript);
+        };
+        document.head.appendChild(threeScript);
+        
+        // Initialize Three.js scene
+        function initThreeJS() {
+            const debugInfo = document.getElementById('debug-info');
+            try {
+                // Basic Three.js setup
+                const scene = new THREE.Scene();
+                scene.background = new THREE.Color(0x0a0a0a);
+                
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                camera.position.set(0, 0, 5);
+                
+                const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                document.body.insertBefore(renderer.domElement, document.body.firstChild);
+                
+                debugInfo.textContent = 'Renderer created. Setting up controls...';
+                
+                // Add orbit controls
+                const controls = new THREE.OrbitControls(camera, renderer.domElement);
+                controls.enableDamping = true;
+                controls.dampingFactor = 0.05;
+                controls.enableZoom = false;
+                controls.enablePan = false;
+                controls.autoRotate = true;
+                controls.autoRotateSpeed = 1.0;
+                
+                debugInfo.textContent = 'Controls set up. Creating particles...';
+                
+                // Create a simple particle system for background
+                const particleGeometry = new THREE.BufferGeometry();
+                const particleCount = 3000;
+                const positionArray = new Float32Array(particleCount * 3);
+                
+                for (let i = 0; i < particleCount; i++) {
+                    positionArray[i * 3] = (Math.random() - 0.5) * 50;
+                    positionArray[i * 3 + 1] = (Math.random() - 0.5) * 50;
+                    positionArray[i * 3 + 2] = (Math.random() - 0.5) * 50;
+                }
+                
+                particleGeometry.setAttribute('position', new THREE.BufferAttribute(positionArray, 3));
+                
+                const particleMaterial = new THREE.PointsMaterial({
+                    color: 0x5d87ff,
+                    size: 0.2,
+                    sizeAttenuation: true
+                });
+                
+                const particles = new THREE.Points(particleGeometry, particleMaterial);
+                scene.add(particles);
+                
+                debugInfo.textContent = 'Particles created. Creating 3D objects...';
+                
+                // Create interactive 3D objects for each section
+                // About section object - Torus Knot
+                const aboutGeometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16);
+                const aboutMaterial = new THREE.MeshStandardMaterial({
+                    color: 0x5d87ff,
+                    metalness: 0.7,
+                    roughness: 0.2,
+                    emissive: 0x5d87ff,
+                    emissiveIntensity: 0.2
+                });
+                
+                const aboutObject = new THREE.Mesh(aboutGeometry, aboutMaterial);
+                aboutObject.position.set(-3, 0, 0);
+                scene.add(aboutObject);
+                
+                // Experience section object - Octahedron
+                const experienceGeometry = new THREE.OctahedronGeometry(1, 0);
+                const experienceMaterial = new THREE.MeshStandardMaterial({
+                    color: 0xff5d87,
+                    metalness: 0.7,
+                    roughness: 0.2,
+                    emissive: 0xff5d87,
+                    emissiveIntensity: 0.2
+                });
+                
+                const experienceObject = new THREE.Mesh(experienceGeometry, experienceMaterial);
+                experienceObject.position.set(3, 0, 0);
+                scene.add(experienceObject);
+                
+                // Projects section object - Dodecahedron
+                const projectsGeometry = new THREE.DodecahedronGeometry(1, 0);
+                const projectsMaterial = new THREE.MeshStandardMaterial({
+                    color: 0x5dff87,
+                    metalness: 0.7,
+                    roughness: 0.2,
+                    emissive: 0x5dff87,
+                    emissiveIntensity: 0.2
+                });
+                
+                const projectsObject = new THREE.Mesh(projectsGeometry, projectsMaterial);
+                projectsObject.position.set(-3, -3, 0);
+                scene.add(projectsObject);
+                
+                debugInfo.textContent = '3D objects created. Setting up lights...';
+                
+                // Add lights
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                scene.add(ambientLight);
+                
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+                directionalLight.position.set(5, 5, 5);
+                scene.add(directionalLight);
+                
+                // Add point lights for better illumination
+                const pointLight1 = new THREE.PointLight(0x5d87ff, 2, 10);
+                pointLight1.position.set(-3, 3, 2);
+                scene.add(pointLight1);
+                
+                const pointLight2 = new THREE.PointLight(0xff5d87, 2, 10);
+                pointLight2.position.set(3, -3, 2);
+                scene.add(pointLight2);
+                
+                debugInfo.textContent = 'Lights set up. Setting up event handlers...';
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+                
+                // Mouse move event for camera movement
+                window.addEventListener('mousemove', (event) => {
+                    const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                    const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+                    
+                    // Subtle camera movement based on mouse position
+                    camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
+                    camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.05;
+                    camera.lookAt(scene.position);
+                });
+                
+                debugInfo.textContent = 'Event handlers set up. Starting animation loop...';
+                
+                // Animation loop
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    // Rotate objects
+                    aboutObject.rotation.x += 0.01;
+                    aboutObject.rotation.y += 0.01;
+                    
+                    experienceObject.rotation.x += 0.01;
+                    experienceObject.rotation.y += 0.01;
+                    
+                    projectsObject.rotation.x += 0.01;
+                    projectsObject.rotation.y += 0.01;
+                    
+                    // Rotate particles slowly
+                    particles.rotation.y += 0.0005;
+                    
+                    // Update controls
+                    controls.update();
+                    
+                    // Render scene
+                    renderer.render(scene, camera);
+                }
+                
+                // Hide loading bar
+                const loadingBarContainer = document.querySelector('.loading-bar-container');
+                loadingBarContainer.style.opacity = '0';
+                setTimeout(() => {
+                    loadingBarContainer.style.display = 'none';
+                }, 1000);
+                
+                // Start animation loop
+                animate();
+                
+                // Update debug info
+                debugInfo.textContent = 'Animation started! 3D scene is running.';
+                setTimeout(() => {
+                    debugInfo.style.opacity = '0';
+                    setTimeout(() => {
+                        debugInfo.style.display = 'none';
+                    }, 1000);
+                }, 3000);
+                
+            } catch (error) {
+                debugInfo.textContent = `Error: ${error.message}`;
+                console.error('Three.js initialization error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

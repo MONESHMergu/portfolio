@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Preview</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #111;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(93, 135, 255, 0.2);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #5d87ff, #ff5d87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #5d87ff;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .preview-image {
+            width: 100%;
+            height: 300px;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        .preview-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #5d87ff, #ff5d87);
+            opacity: 0.2;
+        }
+        .preview-image::after {
+            content: '3D Interactive Portfolio Preview';
+            position: absolute;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .files-list {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .file {
+            padding: 8px 12px;
+            margin-bottom: 5px;
+            background-color: #222;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .file-name {
+            color: #5d87ff;
+        }
+        .file-desc {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        .instructions {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        .instructions ol {
+            margin-left: 20px;
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        .note {
+            background-color: rgba(93, 135, 255, 0.1);
+            border-left: 4px solid #5d87ff;
+            padding: 10px 15px;
+            margin: 20px 0;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .feature {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #5d87ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>3D Interactive Portfolio</h1>
+        
+        <div class="preview-image"></div>
+        
+        <p>This is a preview of your 3D interactive portfolio website. The actual website features animated 3D elements that respond to mouse movements and scroll actions, creating an immersive experience for visitors.</p>
+        
+        <div class="note">
+            <strong>Note:</strong> To view the full interactive experience, you'll need to set up a local development environment with Node.js or use a web server to serve the files.
+        </div>
+        
+        <h2>Features</h2>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🔄</div>
+                <p>Interactive 3D Objects</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎥</div>
+                <p>Smooth Camera Transitions</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✨</div>
+                <p>Particle Effects</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <p>Responsive Design</p>
+            </div>
+        </div>
+        
+        <h2>Files Created</h2>
+        <div class="files-list">
+            <div class="file">
+                <span class="file-name">index.html</span>
+                <span class="file-desc">Main HTML structure</span>
+            </div>
+            <div class="file">
+                <span class="file-name">styles.css</span>
+                <span class="file-desc">CSS styling</span>
+            </div>
+            <div class="file">
+                <span class="file-name">main.js</span>
+                <span class="file-desc">Three.js implementation</span>
+            </div>
+            <div class="file">
+                <span class="file-name">server.js</span>
+                <span class="file-desc">Node.js server</span>
+            </div>
+            <div class="file">
+                <span class="file-name">README.md</span>
+                <span class="file-desc">Documentation</span>
+            </div>
+        </div>
+        
+        <h2>Setup Instructions</h2>
+        <div class="instructions">
+            <ol>
+                <li>Install Node.js from <a href="https://nodejs.org/" style="color: #5d87ff;">nodejs.org</a></li>
+                <li>Open a terminal/command prompt in the portfolio folder</li>
+                <li>Run the command: <code style="background: #222; padding: 3px 6px; border-radius: 3px;">node server.js</code></li>
+                <li>Open your browser and navigate to <code style="background: #222; padding: 3px 6px; border-radius: 3px;">http://localhost:3000</code></li>
+            </ol>
+        </div>
+        
+        <div class="note">
+            <strong>Alternative:</strong> If you don't want to install Node.js, you can use any web server software to serve these files, or upload them to a web hosting service.
+        </div>
+    </div>
+</body>
+</html>
