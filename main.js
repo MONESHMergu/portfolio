@@ -4,25 +4,18 @@ const resumeData = {
         name: "Monesh Mergu",
         title: "Computer Science Student & Full Stack Developer",
         description: "Confident and enthusiastic B.Tech student in Computer Science with hands-on experience in AI assistants, web development, app development and prompt engineering. Seeking opportunities to apply my skills in real-world projects and grow professionally. Passionate about creating innovative solutions using cutting-edge technologies.",
-        skills: ["MERN Stack", "Python", "JavaScript", "ReactJS", "NodeJS", "MongoDB", "Core Java", "AI/ML", "Prompt Engineering"],
+        skills: ["MERN Stack", "Python", "JavaScript", "Core Java", "PHP", "AI/ML", "Prompt Engineering"],
         email: "moneshmergu@gmail.com",
         phone: "+91 9699545020",
         location: "Solapur, Maharashtra"
     },
     experience: [
         {
-            title: "General Secretary",
-            company: "SPM Polytechnic College",
-            date: "2024 - Present",
-            description: "Appointed as General Secretary after a rigorous selection interview conducted by faculty members. Successfully managing college teams in both academics and extracurricular activities. Coordinating team efforts, facilitating event management, and leading multiple events as organizer and mentor.",
-            technologies: ["Leadership", "Team Management", "Event Planning", "Communication"]
-        },
-        {
             title: "AI & Web Development Projects",
             company: "Academic & Personal Projects",
             date: "2023 - Present",
-            description: "Developed multiple innovative projects including AI Assistant with voice-based capabilities, Resume Builder using MERN stack, Fake Currency Detector using Python and image processing, and AI-powered virtual doctor assistant. Gained hands-on experience in full-stack development and AI technologies.",
-            technologies: ["MERN Stack", "Python", "AI/ML", "Image Processing", "ReactJS", "NodeJS"]
+            description: "Developed multiple innovative projects including zoro-AI assistant with advanced conversational capabilities, Fake Currency Detector using Python and image processing, Pharmacy Management System and Online Bakery Management System using HTML, CSS, Tailwind, JavaScript and PHP. Also built Internshala Clone and Growth tracking platform. Gained hands-on experience in full-stack development and AI technologies.",
+            technologies: ["Python", "AI/ML", "HTML", "CSS", "Tailwind", "JavaScript", "PHP", "MERN Stack"]
         },
         {
             title: "Industrial Training Project",
@@ -30,6 +23,13 @@ const resumeData = {
             date: "2024",
             description: "Single-handedly built a project that was selected as the 2nd best during industrial training. Demonstrated exceptional problem-solving skills and technical expertise in developing a comprehensive solution from scratch.",
             technologies: ["Web Development", "Problem Solving", "Project Management"]
+        },
+        {
+            title: "General Secretary",
+            company: "SPM Polytechnic College",
+            date: "2024 - Present",
+            description: "Appointed as General Secretary after a rigorous selection interview conducted by faculty members. Successfully managing college teams in both academics and extracurricular activities. Coordinating team efforts, facilitating event management, and leading multiple events as organizer and mentor.",
+            technologies: ["Leadership", "Team Management", "Event Planning", "Communication"]
         },
         {
             title: "Team Leader & Event Coordinator",
@@ -41,45 +41,52 @@ const resumeData = {
     ],
     projects: [
         {
-            title: "AI Assistant",
-            description: "Developed an intelligent voice-based assistant with advanced conversational capabilities and task management. Features natural language processing, voice recognition, and automated task execution for enhanced productivity.",
+            title: "zoro-AI",
+            description: "Developed an intelligent AI assistant with advanced conversational capabilities and task management. Features natural language processing, voice recognition, and automated task execution for enhanced productivity.",
             tags: ["Python", "AI/ML", "NLP", "Voice Recognition", "Task Automation"],
-            link: "#",
+            link: "https://github.com/MONESHMergu/zoro-AI",
             featured: true
         },
         {
-            title: "AI Assistant Doctor",
-            description: "Developed an AI-powered virtual doctor assistant to provide basic health advice and diagnosis. Implements machine learning algorithms for symptom analysis and health recommendations with conversational interface.",
-            tags: ["Python", "AI/ML", "Healthcare", "Chatbot", "Diagnosis"],
-            link: "#",
-            featured: true
-        },
-        {
-            title: "Resume Builder",
-            description: "Built a dynamic resume generation tool using ReactJS and NodeJS. Features customizable templates, real-time preview, PDF export functionality, and professional formatting for creating impressive resumes.",
-            tags: ["ReactJS", "NodeJS", "MERN Stack", "PDF Generation", "Web App"],
-            link: "#",
-            featured: true
-        },
-        {
-            title: "Fake Currency Detector",
+            title: "fakecurrencydetector",
             description: "Created a Python-based application capable of detecting counterfeit currency using advanced image processing techniques. Utilizes computer vision and machine learning to analyze currency authenticity with high accuracy.",
             tags: ["Python", "Image Processing", "Computer Vision", "ML", "OpenCV"],
-            link: "#",
+            link: "https://github.com/MONESHMergu/fakecurrencydetector",
+            featured: true
+        },
+        {
+            title: "pharmacy-management-sys",
+            description: "Comprehensive pharmacy management system for handling inventory, prescriptions, and sales. Built with robust backend architecture and user-friendly interface for efficient pharmacy operations.",
+            tags: ["HTML", "CSS", "Tailwind", "JavaScript", "PHP"],
+            link: "https://github.com/MONESHMergu/pharmacy-management-sys",
+            featured: true
+        },
+        {
+            title: "online-beakery-management-sys",
+            description: "Online bakery management system with order processing, inventory tracking, and customer management. Features real-time updates and seamless user experience for bakery business operations.",
+            tags: ["HTML", "CSS", "Tailwind", "JavaScript", "PHP"],
+            link: "https://github.com/MONESHMergu/online-beakery-management-sys",
             featured: false
         },
         {
-            title: "Industrial Training Project",
-            description: "Single-handedly developed a comprehensive project that was selected as the 2nd best during industrial training. Demonstrated exceptional technical skills and innovative problem-solving approach.",
-            tags: ["Web Development", "Full Stack", "Innovation", "Problem Solving"],
-            link: "#",
+            title: "grow",
+            description: "Innovative growth tracking and management platform. Implements modern web technologies to deliver scalable and efficient solutions for business and personal development tracking.",
+            tags: ["JavaScript", "Web Development", "Full Stack"],
+            link: "https://github.com/MONESHMergu/grow",
             featured: false
         },
         {
-            title: "3D Interactive Portfolio",
+            title: "internshala-clone",
+            description: "Full-featured clone of Internshala platform with job listings, application management, and user authentication. Demonstrates proficiency in building complex web applications with modern frameworks.",
+            tags: ["MERN Stack", "JavaScript", "Clone Project", "Web App"],
+            link: "https://github.com/MONESHMergu/internshala-clone",
+            featured: false
+        },
+        {
+            title: "portfolio",
             description: "This stunning portfolio website featuring Three.js particle effects, smooth animations, and responsive design. Built to showcase projects and skills in an engaging 3D environment with modern web technologies.",
             tags: ["Three.js", "GSAP", "JavaScript", "CSS3", "WebGL"],
-            link: "#",
+            link: "https://github.com/MONESHMergu/portfolio",
             featured: false
         }
     ],
@@ -736,18 +743,15 @@ function setupContactForm() {
     const contactForm = document.getElementById('contact-form');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             // Get form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject')?.value || 'No subject',
-                message: document.getElementById('message').value
-            };
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject')?.value || 'Portfolio Contact';
+            const message = document.getElementById('message').value;
             
-            // Simulate form submission
             const submitButton = contactForm.querySelector('.btn-submit');
             const buttonText = submitButton.querySelector('.btn-text');
             const originalText = buttonText.textContent;
@@ -756,9 +760,19 @@ function setupContactForm() {
             submitButton.disabled = true;
             submitButton.style.opacity = '0.6';
             
-            // Simulate API call
+            // Create mailto link
+            const mailtoLink = `mailto:moneshmergu@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}
+Email: ${email}
+
+Message:
+${message}`)}`;
+            
+            // Open email client immediately
+            window.location.href = mailtoLink;
+            
+            // Show success message
             setTimeout(() => {
-                buttonText.textContent = 'Message Sent!';
+                buttonText.textContent = 'Email Client Opened!';
                 submitButton.style.background = 'linear-gradient(90deg, #00cc66, #00aa55)';
                 submitButton.style.opacity = '1';
                 
@@ -781,10 +795,7 @@ function setupContactForm() {
                     submitButton.disabled = false;
                     submitButton.style.background = '';
                 }, 3000);
-            }, 1500);
-            
-            // Log form data (in real app, send to server)
-            console.log('Form submitted:', formData);
+            }, 500);
         });
     }
 }
