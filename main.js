@@ -139,11 +139,14 @@ const resumeData = {
 
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Hero scroll and mouse effects
+    setupHeroEffects();
+    
     // Basic Three.js setup
     const scene = new THREE.Scene();
-    // Deep ocean blue background
-    scene.background = new THREE.Color(0x001a33);
-    scene.fog = new THREE.FogExp2(0x003d5c, 0.015);
+    // Deep navy blue background
+    scene.background = new THREE.Color(0x0a192f);
+    scene.fog = new THREE.FogExp2(0x112240, 0.015);
     
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(0, 0, 5);
@@ -250,9 +253,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         causticSizes[i] = Math.random() * 0.6 + 0.2;
         
-        // Light blue/cyan caustic colors
+        // Light cyan/teal caustic colors
         causticColors[i * 3] = 0.4 + Math.random() * 0.2;
-        causticColors[i * 3 + 1] = 0.75 + Math.random() * 0.25;
+        causticColors[i * 3 + 1] = 0.85 + Math.random() * 0.15;
         causticColors[i * 3 + 2] = 0.95 + Math.random() * 0.05;
     }
     
@@ -325,11 +328,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         particleSizes[i] = Math.random() * 0.18 + 0.08;
         
-        // Ocean blue/teal colors for fish
+        // Ocean blue/cyan colors for particles
         const brightness = 0.4 + Math.random() * 0.3;
         particleColors[i * 3] = brightness * 0.3;
-        particleColors[i * 3 + 1] = brightness * 0.85;
-        particleColors[i * 3 + 2] = brightness * 0.95;
+        particleColors[i * 3 + 1] = brightness * 0.9;
+        particleColors[i * 3 + 2] = brightness * 1.0;
         
         particleVelocities.push({
             x: (Math.random() - 0.5) * 0.015,
@@ -357,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Layer 4: Ocean water surface (animated waves)
     const waterGeometry = new THREE.PlaneGeometry(200, 200, 80, 80);
     const waterMaterial = new THREE.MeshBasicMaterial({
-        color: 0x0055aa,
+        color: 0x0088cc,
         transparent: true,
         opacity: 0.15,
         wireframe: true,
@@ -372,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ocean floor
     const floorGeometry = new THREE.PlaneGeometry(200, 200, 60, 60);
     const floorMaterial = new THREE.MeshBasicMaterial({
-        color: 0x002244,
+        color: 0x112240,
         transparent: true,
         opacity: 0.2,
         wireframe: true,
@@ -537,6 +540,58 @@ document.addEventListener('DOMContentLoaded', () => {
     // Setup scroll to top button
     setupScrollToTop();
 });
+
+// Setup hero scroll and mouse effects
+function setupHeroEffects() {
+    const hero = document.querySelector('.hero');
+    const heroName = document.querySelector('.hero-name');
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    
+    if (!hero || !heroName || !heroSubtitle) return;
+    
+    // Parallax scroll effect
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const heroHeight = hero.offsetHeight;
+        
+        if (scrolled < heroHeight) {
+            const opacity = 1 - (scrolled / heroHeight);
+            const translateY = scrolled * 0.5;
+            const scale = 1 + (scrolled / heroHeight) * 0.3;
+            
+            heroName.style.opacity = opacity;
+            heroName.style.transform = `perspective(1000px) rotateX(10deg) translateY(${translateY}px) scale(${scale})`;
+            
+            heroSubtitle.style.opacity = opacity;
+            heroSubtitle.style.transform = `perspective(1000px) rotateX(5deg) translateY(${translateY * 0.7}px)`;
+        }
+    });
+    
+    // Mouse movement effect
+    hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const percentX = (x - centerX) / centerX;
+        const percentY = (y - centerY) / centerY;
+        
+        const rotateY = percentX * 15;
+        const rotateX = -percentY * 15;
+        
+        heroName.style.transform = `perspective(1000px) rotateX(${10 + rotateX}deg) rotateY(${rotateY}deg)`;
+        heroSubtitle.style.transform = `perspective(1000px) rotateX(${5 + rotateX * 0.5}deg) rotateY(${rotateY * 0.5}deg)`;
+    });
+    
+    // Reset on mouse leave
+    hero.addEventListener('mouseleave', () => {
+        heroName.style.transform = 'perspective(1000px) rotateX(10deg) rotateY(0deg)';
+        heroSubtitle.style.transform = 'perspective(1000px) rotateX(5deg) rotateY(0deg)';
+    });
+}
 
 // Populate resume data into the DOM
 function populateResumeData() {
