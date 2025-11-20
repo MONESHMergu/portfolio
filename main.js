@@ -48,6 +48,13 @@ const resumeData = {
             featured: true
         },
         {
+            title: "mock-e-commerce",
+            description: "Full-stack e-commerce platform with MongoDB persistence, Fake Store API integration, shopping cart, checkout system, and order history. Features responsive design with React, Vite, Tailwind CSS, and Express backend.",
+            tags: ["React", "Node.js", "MongoDB", "Express", "Tailwind CSS"],
+            link: "https://github.com/MONESHMergu/mock-e-comerce",
+            featured: true
+        },
+        {
             title: "fakecurrencydetector",
             description: "Created a Python-based application capable of detecting counterfeit currency using advanced image processing techniques. Utilizes computer vision and machine learning to analyze currency authenticity with high accuracy.",
             tags: ["Python", "Image Processing", "Computer Vision", "ML", "OpenCV"],
